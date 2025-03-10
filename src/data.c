@@ -76,7 +76,7 @@ data_setpath(char *name)
  *
  */
 void
-data_closepath()
+data_closepath(void)
 {
 	if (path.zip) {
 		unzClose(path.zip);
@@ -121,9 +121,10 @@ data_file_size(data_file_t *file)
 	int s;
 	if (path.zip) {
 		/* not implemented */
+        s = 0;
 	} else {
 		fseek((FILE *)file, 0, SEEK_END);
-		s = ftell((FILE *)file);
+		s = (int)ftell((FILE *)file);
 		fseek((FILE *)file, 0, SEEK_SET);
 	}
 	return s;
@@ -153,7 +154,7 @@ data_file_tell(data_file_t *file)
 		/* not implemented */
 		return -1;
 	} else {
-		return ftell((FILE *)file);
+		return (int)ftell((FILE *)file);
 	}
 }
 
@@ -164,9 +165,9 @@ int
 data_file_read(data_file_t *file, void *buf, size_t size, size_t count)
 {
 	if (path.zip) {
-		return unzReadCurrentFile(((zipped_t *)file)->zip, buf, size * count) / size;
+		return (int)unzReadCurrentFile(((zipped_t *)file)->zip, buf, size * count) / size;
 	} else {
-		return fread(buf, size, count, (FILE *)file);
+		return (int)fread(buf, size, count, (FILE *)file);
 	}
 }
 
@@ -194,12 +195,12 @@ str_zipext(char *name)
 {
 	int i;
 
-	i = strlen(name) - 1;
-	if (i < 0 || name[i] != 'p' && name[i] != 'P') return 0;
+	i = (int)strlen(name) - 1;
+	if (i < 0 || (name[i] != 'p' && name[i] != 'P')) return 0;
 	i--;
-	if (i < 0 || name[i] != 'i' && name[i] != 'I') return 0;
+	if (i < 0 || (name[i] != 'i' && name[i] != 'I')) return 0;
 	i--;
-	if (i < 0 || name[i] != 'z' && name[i] != 'Z') return 0;
+	if (i < 0 || (name[i] != 'z' && name[i] != 'Z')) return 0;
 	i--;
 	if (i < 0 || name[i] != '.') return 0;
 	i--;
@@ -216,7 +217,7 @@ str_dup(char *s)
 	char *s1;
 	int i;
 
-	i = strlen(s) + 1;
+	i = (int)strlen(s) + 1;
 	s1 = malloc(i);
 	strncpy(s1, s, i);
 	return s1;

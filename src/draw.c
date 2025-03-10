@@ -198,7 +198,7 @@ draw_tilesListImm(U8 *list)
  * returns: end code (0xfe : end of list ; 0xff : end of sub-list)
  */
 U8
-draw_tilesSubList()
+draw_tilesSubList(void)
 {
   U8 i;
 

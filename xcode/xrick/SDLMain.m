@@ -145,7 +145,7 @@ static void setApplicationMenu(void)
     [appleMenu addItemWithTitle:title action:@selector(hide:) keyEquivalent:@"h"];
     
     menuItem = (NSMenuItem *)[appleMenu addItemWithTitle:@"Hide Others" action:@selector(hideOtherApplications:) keyEquivalent:@"h"];
-    [menuItem setKeyEquivalentModifierMask:(NSAlternateKeyMask|NSCommandKeyMask)];
+    [menuItem setKeyEquivalentModifierMask:(NSEventModifierFlagOption|NSEventModifierFlagCommand)];
     
     [appleMenu addItemWithTitle:@"Show All" action:@selector(unhideAllApplications:) keyEquivalent:@""];
     
@@ -311,13 +311,13 @@ static void CustomApplicationMain (int argc, char **argv)
 - (NSString *)stringByReplacingRange:(NSRange)aRange with:(NSString *)aString
 {
     unsigned int bufferSize;
-    unsigned int selfLen = [self length];
-    unsigned int aStringLen = [aString length];
+    unsigned int selfLen = (unsigned int)[self length];
+    unsigned int aStringLen = (unsigned int)[aString length];
     unichar *buffer;
     NSRange localRange;
     NSString *result;
     
-    bufferSize = selfLen + aStringLen - aRange.length;
+    bufferSize = selfLen + aStringLen - (unsigned int)aRange.length;
     buffer = (unichar *)NSAllocateMemoryPages(bufferSize*sizeof(unichar));
     
     /* Get first part into buffer */

@@ -37,7 +37,7 @@ static SDL_Event event;
  * Process an event
  */
 static void
-processEvent()
+processEvent(void)
 {
 	U16 key;
 #ifdef ENABLE_FOCUS

@@ -717,7 +717,7 @@ irestore(void)
  *
  */
 static void
-loaddata()
+loaddata(void)
 {
 #ifdef ENABLE_SOUND
 	/*
@@ -755,7 +755,7 @@ loaddata()
  *
  */
 static void
-freedata()
+freedata(void)
 {
 #ifdef ENABLE_SOUND
 	syssnd_stopall();

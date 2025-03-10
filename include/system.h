@@ -129,7 +129,7 @@ extern S8 syssnd_play(sound_t *, S8);
 extern void syssnd_pause(U8, U8);
 extern void syssnd_stopchan(S8);
 extern void syssnd_stopsound(sound_t *);
-extern void syssnd_stopall();
+extern void syssnd_stopall(void);
 extern int syssnd_isplaying(sound_t *);
 extern sound_t *syssnd_load(char *name);
 extern void syssnd_free(sound_t *);

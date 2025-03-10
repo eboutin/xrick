@@ -101,13 +101,13 @@ sysvid_setPalette(img_color_t *pal, U16 n)
 }
 
 void
-sysvid_restorePalette()
+sysvid_restorePalette(void)
 {
   SDL_SetColors(screen, (SDL_Color *)&palette, 0, 256);
 }
 
 void
-sysvid_setGamePalette()
+sysvid_setGamePalette(void)
 {
   U8 i;
   img_color_t pal[256];
@@ -173,8 +173,7 @@ void
 sysvid_init(void)
 {
   SDL_Surface *s;
-  U8 *mask, tpix;
-  U32 len, i;
+  U8 tpix;
 
   IFDEBUG_VIDEO(printf("xrick/video: start\n"););
 

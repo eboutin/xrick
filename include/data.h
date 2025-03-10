@@ -21,7 +21,7 @@
 typedef void *data_file_t;
 
 extern void data_setpath(char *);
-extern void data_closepath();
+extern void data_closepath(void);
 
 extern data_file_t *data_file_open(char *);
 extern int data_file_seek(data_file_t *file, long offset, int origin);
