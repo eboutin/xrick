@@ -145,6 +145,24 @@ processEvent(void)
       CLRBIT(control_status, CONTROL_FIRE);
       control_last = CONTROL_FIRE;
     }
+    else if (key == SDLK_s) {
+        FILE *file;
+        file = fopen("savegame.dat", "wb");
+        if (file != NULL)
+        {
+            game_savestate(file);
+            fclose(file);
+        }
+    }
+    else if (key == SDLK_l) {
+        FILE *file;
+        file = fopen("savegame.dat", "rb");
+        if (file != NULL)
+        {
+            game_loadstate(file);
+            fclose(file);
+        }
+    }
     break;
   case SDL_QUIT:
     /* player tries to close the window -- this is the same as pressing ESC */
@@ -229,6 +247,3 @@ sysevt_wait(void)
 }
 
 /* eof */
-
-
-

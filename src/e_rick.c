@@ -103,6 +103,21 @@ e_rick_gozombie(void)
 }
 
 
+void e_rick_savestate(FILE *file)
+{
+    SAVESTATE(save_x, file);
+    SAVESTATE(save_y, file);
+    SAVESTATE(save_crawl, file);
+}
+
+void e_rick_loadstate(FILE *file)
+{
+    LOADSTATE(save_x, file);
+    LOADSTATE(save_y, file);
+    LOADSTATE(save_crawl, file);
+}
+
+
 /*
  * Action sub-function for e_rick when zombie
  *

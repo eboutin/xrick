@@ -160,8 +160,10 @@ extern void sysjoy_shutdown(void);
 #endif
 
 
+#define SAVESTATE(data, file) fwrite(&data, sizeof(data), 1, file)
+#define LOADSTATE(data, file) fread (&data, sizeof(data), 1, file)
+
+
 #endif
 
 /* eof */
-
-

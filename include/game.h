@@ -61,6 +61,8 @@ extern void game_run(void);
 extern void game_setmusic(char *name, U8 loop);
 extern void game_stopmusic(void);
 
+extern void game_savestate(FILE *file);
+extern void game_loadstate(FILE *file);
 
 #ifdef ENABLE_CHEATS
 extern U8 game_cheat1;     /* infinite lives, bombs and bullets */

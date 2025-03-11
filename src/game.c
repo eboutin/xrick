@@ -245,6 +245,55 @@ game_run(void)
 	freedata(); /* free cached data */
 }
 
+void game_savestate(FILE *file)
+{
+    SAVESTATE(game_map, file);
+    SAVESTATE(game_lives, file);
+    SAVESTATE(game_bombs, file);
+    SAVESTATE(game_bullets, file);
+    SAVESTATE(game_score, file);
+
+    SAVESTATE(game_map, file);
+    SAVESTATE(game_submap, file);
+
+    SAVESTATE(game_dir, file);
+
+    SAVESTATE(game_cheat1, file);
+    SAVESTATE(game_cheat2, file);
+    SAVESTATE(game_cheat3, file);
+    
+    SAVESTATE(map_frow, file);
+
+    e_rick_savestate(file);
+}
+
+void game_loadstate(FILE *file)
+{
+    LOADSTATE(game_map, file);
+    LOADSTATE(game_lives, file);
+    LOADSTATE(game_bombs, file);
+    LOADSTATE(game_bullets, file);
+    LOADSTATE(game_score, file);
+    
+    LOADSTATE(game_map, file);
+    LOADSTATE(game_submap, file);
+    
+    LOADSTATE(game_dir, file);
+    
+    LOADSTATE(game_cheat1, file);
+    LOADSTATE(game_cheat2, file);
+    LOADSTATE(game_cheat3, file);
+    
+    LOADSTATE(map_frow, file);
+    
+    e_rick_loadstate(file);
+    
+    isave_frow = map_frow;
+    game_chsm = FALSE;
+    game_state = RESTART;
+}
+
+
 /*
  * Prepare frame
  *
@@ -436,19 +485,20 @@ frame(void)
 
 
     case CHAIN_SUBMAP:
-      if (map_chain())
-	game_state = CHAIN_END;
+      if (map_chain()) {
+		  game_state = CHAIN_END;
+	  }
       else {
-	game_bullets = 0x06;
-	game_bombs = 0x06;
-	game_map++;
+		game_bullets = 0x06;
+		game_bombs = 0x06;
+		game_map++;
 
-	if (game_map == 0x04) {
-	  /* reached end of game */
-	  /* FIXME @292?*/
-	}
+		if (game_map == 0x04) {
+			/* reached end of game */
+			/* FIXME @292?*/
+		}
 
-	game_state = CHAIN_MAP;
+		game_state = CHAIN_MAP;
       }
       break;
 
@@ -457,24 +507,24 @@ frame(void)
     case CHAIN_MAP:                             /* CHAIN MAP */
       switch (screen_introMap()) {
       case SCREEN_RUNNING:
-	return;
+        return;
       case SCREEN_DONE:
-	if (game_map >= 0x04) {  /* reached end of game */
-	  sysarg_args_map = 0;
-	  sysarg_args_submap = 0;
-	  game_state = GAMEOVER;
-	}
-	else {  /* initialize game */
-	  ent_ents[1].x = map_maps[game_map].x;
-	  ent_ents[1].y = map_maps[game_map].y;
-	  map_frow = (U8)map_maps[game_map].row;
-	  game_submap = map_maps[game_map].submap;
-	  game_state = CHAIN_END;
-	}
-	break;
+	    if (game_map >= 0x04) {  /* reached end of game */
+	      sysarg_args_map = 0;
+	      sysarg_args_submap = 0;
+	      game_state = GAMEOVER;
+	    }
+        else {  /* initialize game */
+          ent_ents[1].x = map_maps[game_map].x;
+          ent_ents[1].y = map_maps[game_map].y;
+          map_frow = (U8)map_maps[game_map].row;
+          game_submap = map_maps[game_map].submap;
+          game_state = CHAIN_END;
+        }
+        break;
       case SCREEN_EXIT:
-	game_state = EXIT;
-	return;
+	    game_state = EXIT;
+	    return;
       }
       break;
 
