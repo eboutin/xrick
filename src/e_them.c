@@ -681,7 +681,7 @@ e_them_t3_action2(U8 e)
       /* initialize step counter */
     wakeup:
       if E_RICK_STTST(E_RICK_STZOMBIE)
-	return;
+	    return;
 #ifdef ENABLE_SOUND
 		/*
 		* FIXME the sound should come from a table, there are 10 of them
@@ -689,8 +689,12 @@ e_them_t3_action2(U8 e)
 		* FIXME is it 8 of them, not 10?
 		* FIXME testing below...
 		*/
-		syssnd_play(WAV_ENTITY[(ent_ents[e].trigsnd & 0x1F) - 0x14], 1);
-		/*syssnd_play(WAV_ENTITY[0], 1);*/
+        {
+            U8 snd = (ent_ents[e].trigsnd & 0x1F) - 0x14;
+            if (snd < 10)
+              syssnd_play(WAV_ENTITY[snd], 1);
+            /*syssnd_play(WAV_ENTITY[0], 1);*/
+        }
 #endif
       ent_ents[e].n &= ~ENT_LETHAL;
       if (ent_ents[e].flags & ENT_FLG_LETHALI)
