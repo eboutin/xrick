@@ -165,7 +165,7 @@ int
 data_file_read(data_file_t *file, void *buf, size_t size, size_t count)
 {
 	if (path.zip) {
-		return (int)unzReadCurrentFile(((zipped_t *)file)->zip, buf, size * count) / size;
+		return (int)unzReadCurrentFile(((zipped_t *)file)->zip, buf, (int)(size * count)) / size;
 	} else {
 		return (int)fread(buf, size, count, (FILE *)file);
 	}
