@@ -25,6 +25,8 @@
 
 #include "control.h"
 #include "draw.h"
+#include "ents.h"
+#include "e_rick.h"
 
 #define SYSJOY_RANGE 3280
 
@@ -144,6 +146,9 @@ processEvent(void)
     else if (key == syskbd_fire) {
       CLRBIT(control_status, CONTROL_FIRE);
       control_last = CONTROL_FIRE;
+    }
+    else if (key == SDLK_d) {
+        E_RICK_ENT.y += 20;
     }
     else if (key == SDLK_s) {
         FILE *file;

@@ -28,7 +28,7 @@
 #define TRUE 1
 #define FALSE 0
 
-#define GAME_PERIOD 75
+#define GAME_PERIOD 85
 
 #define GAME_BOMBS_INIT 6
 #define GAME_BULLETS_INIT 6
